@@ -331,22 +331,15 @@ void BoardBlocks::play_move(const Move &abstract_move) {
 }
 
 bool BoardBlocks::play_random_move(Token player) {
-    Moves possible_moves=get_possible_moves(player);
-    if (possible_moves.empty()) return false;
+    if (playable_colors.empty()) return false;
 
-    int selected=rand()/(RAND_MAX + 1.0) * possible_moves.size();
-    Moves::const_iterator selected_iter=possible_moves.begin();
+    int selected=rand()/(RAND_MAX + 1.0) * playable_colors.size();
+    Colors::const_iterator selected_iter=playable_colors.begin();
     while (selected>0) {
         selected--;
         selected_iter++;
     }
-    play_move(**selected_iter);
-
-    //play_move(*selected);
-    //Move *selected=possible_moves[rand()%possible_moves.size()];
-    //play_move(*selected);
-
-    for (Moves::iterator iter=possible_moves.begin(); iter!=possible_moves.end(); iter++) delete *iter;
+    play_move(MoveBlocks(player,*selected_iter));
 
     return true;
 }
