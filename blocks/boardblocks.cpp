@@ -207,11 +207,7 @@ Board *BoardBlocks::deepcopy() const {
         dest.playable = orig.playable;
     }
 
-    copy->playable_colors.clear();
-    for (Colors::const_iterator i=playable_colors.begin(); i!=playable_colors.end(); i++) {
-        copy->playable_colors.insert(*i);
-    }
-
+    copy->playable_colors=playable_colors;
     return copy;
 }
 
