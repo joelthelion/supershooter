@@ -164,7 +164,7 @@ void BoardBlocks::update_playable() {
         TokenBlocks *current = queue.front();
         queue.pop();
 
-        //assert(current->color!=forbidden_color);
+        assert(current->color!=forbidden_color);
         if (current->player==NOT_PLAYED) {
             current->playable = true;
             playable_colors[static_cast<int>(current->color)] = true;
@@ -353,7 +353,9 @@ bool BoardBlocks::play_random_move(Token player) {
         if (playable_colors[selected])
             break;
     }
-    play_move(MoveBlocks(player,static_cast<Color>(selected)));
+    MoveBlocks * move= new MoveBlocks(player,static_cast<Color>(selected));
+    play_move(*move);
+    delete move;
     return true;
 }
 
